@@ -2,7 +2,7 @@
 
 A REST API for managing personal expenses built with FastAPI.
 
-The API allows users to add, view, filter, summarize, and delete expenses while storing data in a local JSON file. The project focuses on clean code organization, request validation, and automated testing while keeping the implementation simple.
+The API allows users to add, view, filter, summarize, and delete expenses while storing data in a local JSON file. The project focuses on clean code organization, request validation, and automated testing while keeping the implementation easy to understand and maintain.
 
 ---
 
@@ -60,7 +60,7 @@ diligent_SE/
 
 ## Architecture
 
-The application is divided into small layers so that each part has a single responsibility.
+The application follows a layered architecture where each layer has a single responsibility.
 
 ```text
 Client
@@ -80,12 +80,12 @@ expenses.json
 
 ### Responsibilities
 
-- **Routes** receive HTTP requests and return responses.
-- **Services** contain the business logic.
-- **Storage** reads from and writes to the JSON file.
-- **Schemas** validate requests and define response models.
+- Routes receive HTTP requests and return responses.
+- Services contain the business logic.
+- Storage handles reading from and writing to the JSON file.
+- Schemas validate incoming requests and define response models.
 
-Keeping these responsibilities separate makes the project easier to understand, test, and maintain.
+Separating these responsibilities keeps the code easier to understand, test, and maintain.
 
 ---
 
@@ -94,7 +94,7 @@ Keeping these responsibilities separate makes the project easier to understand, 
 Clone the repository:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/SakshiB71/diligent_SE.git
 cd diligent_SE
 ```
 
@@ -106,13 +106,13 @@ python -m venv .venv
 
 Activate the virtual environment.
 
-### Windows
+Windows
 
 ```bash
 .venv\Scripts\activate
 ```
 
-### macOS / Linux
+macOS / Linux
 
 ```bash
 source .venv/bin/activate
@@ -136,7 +136,7 @@ uvicorn src.main:app --reload
 
 Once the server is running, open:
 
-```text
+```
 http://127.0.0.1:8000/docs
 ```
 
@@ -152,7 +152,16 @@ Run the automated test suite:
 python -m pytest
 ```
 
-The test suite covers the main API functionality, validation, and error handling.
+The test suite verifies:
+
+- Creating new expenses
+- Listing all expenses
+- Filtering expenses by category
+- Calculating overall expense totals
+- Calculating category-wise totals
+- Deleting expenses
+- Validation for invalid input
+- Handling requests for non-existent expenses
 
 ---
 
@@ -174,7 +183,7 @@ Invalid requests return a **422 Unprocessable Entity** response.
 ## API Endpoints
 
 | Method | Endpoint | Description |
-|---------|----------|-------------|
+|--------|----------|-------------|
 | GET | `/` | Welcome endpoint |
 | POST | `/expenses` | Add a new expense |
 | GET | `/expenses` | View all expenses |
@@ -187,9 +196,11 @@ Invalid requests return a **422 Unprocessable Entity** response.
 
 ## Example Request
 
-### Create Expense
+Create Expense
 
-**POST** `/expenses`
+```http
+POST /expenses
+```
 
 ```json
 {
@@ -200,7 +211,7 @@ Invalid requests return a **422 Unprocessable Entity** response.
 }
 ```
 
-Response (**201 Created**)
+Response (201 Created)
 
 ```json
 {
@@ -218,11 +229,11 @@ Response (**201 Created**)
 
 The assignment allowed storing data either in memory or in a local JSON file. I chose a JSON file because it keeps the implementation simple while allowing expenses to persist between server restarts.
 
-Instead of placing all logic in a single file, I separated the application into routes, services, storage, and schemas. Each module has a single responsibility, which makes the code easier to read, test, and modify.
+Instead of placing all the logic in a single file, I separated the application into routes, services, storage, and schemas. Each module has a single responsibility, making the project easier to read, test, and modify.
 
-I chose FastAPI because it provides request validation through Pydantic and automatically generates Swagger documentation. This reduced boilerplate and allowed me to focus on the API design and business logic.
+I chose FastAPI because it provides automatic request validation through Pydantic and generates interactive API documentation using Swagger UI. This reduced boilerplate and allowed me to focus on the API design and business logic.
 
-Automated tests were added to verify the main API endpoints, validation, and error handling.
+Automated tests were added to verify the core API functionality, validation rules, and error handling.
 
 ---
 
@@ -230,11 +241,12 @@ Automated tests were added to verify the main API endpoints, validation, and err
 
 If this project were extended further, possible improvements would include:
 
-- Add an update (PUT/PATCH) endpoint
+- Add support for updating existing expenses (PUT/PATCH)
 - Replace JSON storage with SQLite or PostgreSQL
 - Add pagination and sorting for larger datasets
 - Generate monthly spending summaries by category
-- Add authentication so each user can manage their own expenses
+- Add authentication and user accounts
+- Add expense analytics and reporting
 
 ---
 
